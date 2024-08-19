@@ -2,7 +2,7 @@ kompo_storis = 5;
 detales_storis = 10;
 eink_storis = 7;
 
-aukstis = 90;
+aukstis = 120;
 plotis = 50;
 
 
@@ -23,7 +23,7 @@ module detale() {
         }
     }
 
-    rotate(15)
+    rotate(10)
     mirror([0,1,0])
     difference() {
         cube([detales_storis,plotis,aukstis]);
@@ -32,7 +32,7 @@ module detale() {
           cube([eink_storis,plotis+5,aukstis]);
         }
         
-        translate([5.5, 25, 20+atitraukimas]) {
+        translate([5.5, 27, 20+atitraukimas]) {
           cube([5,plotis+5,aukstis]);
         }
     }
@@ -43,7 +43,7 @@ detale();
 
 // right
 
-translate([0,150,0])
-mirror([0,1,0])
-detale();
+//translate([0,150,0])
+//mirror([0,1,0])
+//detale();
 
