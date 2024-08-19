@@ -39,7 +39,7 @@ module detale() {
 }
 
 // left
-//detale();
+detale();
 
 // right
 
