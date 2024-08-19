@@ -2,7 +2,7 @@ kompo_storis = 5;
 detales_storis = 10;
 eink_storis = 7;
 
-aukstis = 80;
+aukstis = 90;
 
 difference() {
     cube([detales_storis,30,aukstis]);
