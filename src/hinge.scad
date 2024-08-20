@@ -10,8 +10,8 @@ ds=3;
 dl=4;
 da=6;
 
-start_angle=0;
-opening_angle=110;
+start_angle=45;
+opening_angle=90;
 lever=20;
 
 segments=1;
@@ -25,7 +25,7 @@ eps=0.001;
 cut = false;
 
 difference(){
-hinge(ds=ds,dl=dl,da=da,segments=segments,h=height,shoulder=shoulder,opening_angle=opening_angle,h_gap=h_gap,v_gap=v_gap );
+hinge(ds=ds,dl=dl,da=da,segments=segments,h=height,shoulder=shoulder,opening_angle=opening_angle,h_gap=h_gap,v_gap=v_gap, start_angle=start_angle );
 if (cut) {
 translate([-10,-10,-eps])
 cube([10,40,20]);

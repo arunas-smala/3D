@@ -66,6 +66,7 @@ module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "a
 }
 
 module detale() {
+    translate([0,-2,0])
     difference() {
         union() {
             roundedcube([detales_storis, plotis*2,aukstis], false, 5, "x");
@@ -87,10 +88,10 @@ module detale() {
     
     translate([detales_storis/2,-9,0])
     rotate([0,0,90])
-    hinge(lever=10, segments=10, h=aukstis, opening_angle=110, h_gap=0.25, v_gap=0.2, start_angle=90, ds=detales_storis-5, dl=detales_storis, da=detales_storis+5);
+    hinge(lever=10, segments=10, h=aukstis, opening_angle=90, h_gap=0.25, v_gap=0.2, start_angle=45, ds=detales_storis-5, dl=detales_storis, da=detales_storis+5);
 
-    //rotate(7.5)
-    translate([0,-18,0])
+    translate([-4.06,-11,0])
+    rotate(-45)
     mirror([0,1,0])
     difference() {
         
@@ -110,12 +111,12 @@ module detale() {
 
 // left
 
-detale();
+//detale();
 
 
 // right
 
-//translate([0,150,0])
-//mirror([0,1,0])
-//detale();
+translate([0,150,0])
+mirror([0,1,0])
+detale();
 
