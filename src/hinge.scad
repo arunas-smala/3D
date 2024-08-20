@@ -11,7 +11,7 @@ dl=4;
 da=6;
 
 start_angle=0;
-opening_angle=90;
+opening_angle=110;
 lever=20;
 
 segments=1;

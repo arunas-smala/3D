@@ -1,8 +1,10 @@
+use <hinge.scad>
+
 kompo_storis = 5;
 detales_storis = 10;
 eink_storis = 7;
 
-aukstis = 120+(116/2);
+aukstis = 120+(114/2);
 plotis = 27;
 
 
@@ -66,24 +68,29 @@ module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "a
 module detale() {
     difference() {
         union() {
-            roundedcube([detales_storis, plotis,aukstis], false, 5, "x");
+            roundedcube([detales_storis, plotis*2,aukstis], false, 5, "x");
             cube([detales_storis, 5, aukstis]);
         }
 
         translate([(detales_storis-kompo_storis)/2,5,5]) {
-          cube([kompo_storis,plotis+5,aukstis]);
+          cube([kompo_storis,plotis*2+5,aukstis]);
         }
         
-        translate([-15.5, 11, 9]) {
-          cube([50,plotis+5,aukstis]);
+        translate([5.5, 11, 9]) {
+          cube([10,plotis*2+5,aukstis]);
         }
         
-        translate([-5,10, aukstis])
+        translate([5,10, aukstis])
         rotate([90,0,90])
         cylinder(20, 5, 5);
     }
+    
+    translate([detales_storis/2,-9,0])
+    rotate([0,0,90])
+    hinge(lever=10, segments=10, h=aukstis, opening_angle=110, h_gap=0.25, v_gap=0.2, start_angle=90, ds=detales_storis-5, dl=detales_storis, da=detales_storis+5);
 
-    rotate(7.5)
+    //rotate(7.5)
+    translate([0,-18,0])
     mirror([0,1,0])
     difference() {
         
@@ -104,6 +111,7 @@ module detale() {
 // left
 
 detale();
+
 
 // right
 
