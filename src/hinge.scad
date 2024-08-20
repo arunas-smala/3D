@@ -26,7 +26,7 @@ cut = false;
 
 detales_storis = 10;
 
-    hinge(lever=10, segments=2, h=28, opening_angle=90, h_gap=0.25, v_gap=0.2, start_angle=45, ds=detales_storis-1, dl=detales_storis, da=detales_storis+2);
+    hinge(lever=30, segments=2, h=28, opening_angle=180, h_gap=0.25, v_gap=0.2, start_angle=0, ds=detales_storis-3, dl=detales_storis, da=detales_storis+3);
 
 module hinge(da=6, dl=4, ds=3, h=14, segments=1, lever=20, start_angle=0, opening_angle=90, shoulder=0.2, h_gap=0.25, v_gap=0.2) {
   for (a=[1:segments]) {
