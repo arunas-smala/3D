@@ -10,7 +10,7 @@ ds=3;
 dl=4;
 da=6;
 
-start_angle=45;
+start_angle=0;
 opening_angle=90;
 lever=20;
 
@@ -24,23 +24,9 @@ $fa=1;
 eps=0.001;
 cut = false;
 
-difference(){
-hinge(ds=ds,dl=dl,da=da,segments=segments,h=height,shoulder=shoulder,opening_angle=opening_angle,h_gap=h_gap,v_gap=v_gap, start_angle=start_angle );
-if (cut) {
-translate([-10,-10,-eps])
-cube([10,40,20]);
-}
-}
+detales_storis = 10;
 
-translate([da,-dl/2,3])
-rotate([90,0,0])
-linear_extrude(0.2)
-text(text=t1, size=8);
-
-translate([-dl/2-0.2,da,1])
-rotate([90,-90,-90])
-linear_extrude(0.2)
-text(text=t2, size=8);
+    hinge(lever=10, segments=2, h=28, opening_angle=90, h_gap=0.25, v_gap=0.2, start_angle=45, ds=detales_storis-1, dl=detales_storis, da=detales_storis+2);
 
 module hinge(da=6, dl=4, ds=3, h=14, segments=1, lever=20, start_angle=0, opening_angle=90, shoulder=0.2, h_gap=0.25, v_gap=0.2) {
   for (a=[1:segments]) {
