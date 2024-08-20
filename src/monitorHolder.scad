@@ -112,12 +112,12 @@ module detale() {
 
 // left
 
-detale();
+//detale();
 
 
 // right
-/*
+
 translate([0,150,0])
 mirror([0,1,0])
 detale();
-*/
+
