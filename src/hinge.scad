@@ -1,7 +1,7 @@
 
 shoulder = 0.2;
 h_gap=0.25;
-layer_height=0.15;
+layer_height=0.12;
 v_gap_layers=1;
 v_gap=layer_height*v_gap_layers;
 height=14;
@@ -16,7 +16,7 @@ lever=20;
 
 segments=1;
 
-t1="";
+t1="2.25";
 t2="";
 
 $fs=0.1;
@@ -25,8 +25,26 @@ eps=0.001;
 cut = false;
 
 detales_storis = 10;
+dds=detales_storis-1;
+ddl=detales_storis;
+dda=detales_storis+2;
+difference(){
+  hinge(lever=30, segments=1, h=28, opening_angle=180, h_gap=0.25, v_gap=0.12, start_angle=0, ds=dds, dl=ddl, da=dda);
+if (cut) {
+translate([-10,-10,-eps])
+cube([10,40,20]);
+}
+}
 
-    hinge(lever=30, segments=2, h=28, opening_angle=180, h_gap=0.25, v_gap=0.2, start_angle=0, ds=detales_storis-3, dl=detales_storis, da=detales_storis+3);
+translate([dda,-ddl/2,3])
+rotate([90,-90,0])
+linear_extrude(0.2)
+text(text=t1, size=7);
+
+translate([-ddl/2-0.2,dda,1])
+rotate([90,-90,-90])
+linear_extrude(0.2)
+text(text=t2, size=8);
 
 module hinge(da=6, dl=4, ds=3, h=14, segments=1, lever=20, start_angle=0, opening_angle=90, shoulder=0.2, h_gap=0.25, v_gap=0.2) {
   for (a=[1:segments]) {

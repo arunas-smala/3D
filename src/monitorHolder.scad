@@ -4,7 +4,7 @@ kompo_storis = 5;
 detales_storis = 10;
 eink_storis = 7;
 
-aukstis = (120+(114/2));
+aukstis = (120+(115/2))-4;
 plotis = 27;
 
 
@@ -72,9 +72,11 @@ module detale() {
         union() {
             roundedcube([detales_storis, plotis*2,aukstis], false, 5, "x");
             cube([detales_storis, 5, aukstis]);
+            translate([0,plotis,aukstis-10])
+            cube([detales_storis, plotis,10]);
         }
 
-        translate([(detales_storis-kompo_storis)/2,5,5]) {
+        translate([(detales_storis-kompo_storis)/2,5,1]) {
           cube([kompo_storis,plotis*2+5,aukstis]);
         }
         
@@ -87,12 +89,12 @@ module detale() {
         cylinder(20, 5, 5);
     }
     
-    translate([detales_storis/2,-9,0])
-    rotate([0,0,90])
-     hinge(lever=10, segments=5, h=aukstis, opening_angle=180, h_gap=0.25, v_gap=0.2, start_angle=0, ds=detales_storis-3, dl=detales_storis, da=detales_storis+3);
+    //translate([detales_storis/2,-9,0])
+    //  rotate([0,0,90])
+     //hinge(lever=10, segments=5, h=aukstis, opening_angle=180, h_gap=0.25, v_gap=0.2, start_angle=0, ds=detales_storis-3, dl=detales_storis, da=detales_storis+3);
 
-    translate([-4,-4,0])
-    rotate(-90)
+      translate([0,-2,0])
+    rotate(10)
     mirror([0,1,0])
     difference() {
         
@@ -103,7 +105,7 @@ module detale() {
             cube([detales_storis, plotis,10]);
         }
 
-        translate([(detales_storis-eink_storis)/2,5,5+atitraukimas]) {
+        translate([(detales_storis-eink_storis)/2,5,1+atitraukimas]) {
           cube([eink_storis,plotis+5,aukstis]);
         }
         
@@ -111,13 +113,12 @@ module detale() {
 }
 
 // left
-
-detale();
+//detale();
 
 
 // right
 
-//translate([0,150,0])
-//mirror([0,1,0])
-//detale();
+translate([0,150,0])
+mirror([0,1,0])
+detale();
 
