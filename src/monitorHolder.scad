@@ -80,7 +80,7 @@ module detale() {
           cube([kompo_storis,plotis*2+5,aukstis]);
         }
         
-        translate([5.5, 11, 9]) {
+        translate([5.5, 11, 5]) {
           cube([10,plotis*2+5,aukstis]);
         }
         
@@ -113,12 +113,12 @@ module detale() {
 }
 
 // left
-//detale();
+detale();
 
 
 // right
 
-translate([0,150,0])
-mirror([0,1,0])
-detale();
+//translate([0,150,0])
+//mirror([0,1,0])
+//detale();
 
