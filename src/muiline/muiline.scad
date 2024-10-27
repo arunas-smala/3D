@@ -1,3 +1,5 @@
+include <BOSL2/std.scad>
+
 $fa = 1;
 $fs = 0.5;
 
@@ -5,6 +7,9 @@ or=38;
 
 module base() {
     import("files/box_base_V0.stl");
+    
+translate([0,or,-or+3])
+stick();
 }
 
 module diver1() {
@@ -64,18 +69,45 @@ module diver3() {
 
 
 module body() {
+translate([0,0,34])
+rotate([180,0,0])
     difference() {
         union() {
-            translate([0,0,32.1])
-            cylinder(1.9, or, or);
             // this one does not render!
             //import("files/box_lid_v0.stl");
             import("li.stl");
+            translate([0,0,32.1])
+            cylinder(1.9, or, or);
         }
         
-        diver1();
+        diver3();
     }
+    
+translate([0,or,-or+3])
+stick();
+}
+module textur() {
+//tex = texture("trunc_diamonds",border=.25);
+//tex = texture("trunc_pyramids_vnf", border=.4);
+tex = texture("checkers",border=0.25);
+linear_sweep(
+    rect(or*2), texture=tex, h=or*2,
+    tex_size=[10,10]
+);
 }
 
+module stick() {
+
+
+
+intersection() {
+rotate([90,0,0])
+import("textur.stl");
+translate([0,-or,or-1])
+cylinder(h=10, r=or-3);
+}
+}
+
+//base();
 
 body();
