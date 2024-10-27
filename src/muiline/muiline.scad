@@ -98,39 +98,40 @@ rotate([180,0,0])
         kid1();
         
         th=5;
-    translate([-5,-47.0,33.5+th/2])
-path_text(path, "lauktuvių!", font="Chivo Mono:style=Bold", size=8, h=th, lettersize=7/1.25, normal=UP);
+    translate([-6.2,-46.6,33.5+th/2])
+path_text(path, "lauktuvių!", font="Chivo Mono:style=Bold", size=7.6, h=th, lettersize=7/1.23, normal=UP);
 
 
     translate([-2,-27.3,33.5+th/2])
-path_text(path2, "nepamiršk", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
+path_text(path2, "nepamiršk", font="Chivo Mono:style=Bold", size=4.5, h=th, lettersize=4.5/1.2, normal=UP);
 
 
 
     path3 = path3d(arc(100, r=50, angle=[ 210, 465]));
-    path4 = path3d(arc(100, r=60, angle=[ 210, 465]));
+    path4 = path3d(arc(100, r=60, angle=[ 230, 465]));
+  path4a = path3d(arc(100, r=60, angle=[ 240, 465]));
 
-    translate([6.5,33.5,33.5+th/2])
-path_text(path3, "geros", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
+    translate([5.6,28.5,33.5+th/2])
+path_text(path3, "geros", font="Chivo Mono:style=Bold", size=4.5, h=th, lettersize=4.5/1.2, normal=UP);
 
-    translate([14,32,33.5+th/2])
+    translate([0.6,39,33.5+th/2])
 path_text(path4, "koman-", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
-    translate([14,24.5,33.5+th/2])
-path_text(path4, "diruotės", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
+    translate([-5.9,37.5,33.5+th/2])
+path_text(path4a, "diruotės", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
 
 
 
-    path5 = path3d(arc(100, r=40, angle=[ 285, 465]));
-    path6 = path3d(arc(100, r=50, angle=[ 275, 465]));
-    path6a = path3d(arc(100, r=50, angle=[ 265, 465]));
+    path5 = path3d(arc(100, r=50, angle=[ 290, 465]));
+    path6 = path3d(arc(100, r=60, angle=[ 280, 465]));
+    path6a = path3d(arc(100, r=60, angle=[ 265, 465]));
     
-    translate([11,23,33.5+th/2])
+    translate([5.6,33.59,33.5+th/2])
 path_text(path5, "Joris", font="Chivo Mono:style=Bold", size=4.5, h=th, lettersize=4.5/1.2, normal=UP);
 
-    translate([17,30,33.5+th/2])
-path_text(path6, "2024", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
-    translate([24,27,33.5+th/2])
-path_text(path6a, "11-11", font="Chivo Mono:style=Bold", size=3, h=th, lettersize=3/1.2, normal=UP);
+    translate([13.4,41,33.5+th/2])
+path_text(path6, "2024", font="Chivo Mono:style=Bold", size=3.8, h=th, lettersize=3.8/1.2, normal=UP);
+    translate([22.7,38.5,33.5+th/2])
+path_text(path6a, "11-11", font="Chivo Mono:style=Bold", size=3.6, h=th, lettersize=3.6/1.2, normal=UP);
 
     }
     
