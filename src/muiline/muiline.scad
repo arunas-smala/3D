@@ -75,31 +75,15 @@ module kid1() {
     //resize([or*1.5,or*1.5])
     translate([-0,-20,0])
     import("kid.svg", center=true);
-}
-
-
-module body() {
-
+    
     path = path3d(arc(100, r=70, angle=[ 465, 145]));
     path2 = path3d(arc(100, r=59, angle=[ 465, 145]));
     
     
-translate([0,0,34])
-rotate([180,0,0])
-    difference() {
-        union() {
-            // this one does not render!
-            //import("files/box_lid_v0.stl");
-            import("li.stl");
-            translate([0,0,32.1])
-            cylinder(1.9, or, or);
-        }
-        
-        kid1();
-        
+      
         th=5;
-    translate([-6.2,-46.6,33.5+th/2])
-path_text(path, "lauktuvių!", font="Chivo Mono:style=Bold", size=7.6, h=th, lettersize=7/1.23, normal=UP);
+    translate([-5.2,-45.5,33.5+th/2])
+path_text(path, "lauktuvių!", font="Chivo Mono:style=Bold", size=6.5, h=th, lettersize=6.5/1.2, normal=UP);
 
 
     translate([-2,-27.3,33.5+th/2])
@@ -114,7 +98,7 @@ path_text(path2, "nepamiršk", font="Chivo Mono:style=Bold", size=4.5, h=th, let
     translate([5.6,28.5,33.5+th/2])
 path_text(path3, "geros", font="Chivo Mono:style=Bold", size=4.5, h=th, lettersize=4.5/1.2, normal=UP);
 
-    translate([0.6,39,33.5+th/2])
+    translate([0.69,39,33.5+th/2])
 path_text(path4, "koman-", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
     translate([-5.9,37.5,33.5+th/2])
 path_text(path4a, "diruotės", font="Chivo Mono:style=Bold", size=4, h=th, lettersize=4/1.2, normal=UP);
@@ -125,13 +109,33 @@ path_text(path4a, "diruotės", font="Chivo Mono:style=Bold", size=4, h=th, lette
     path6 = path3d(arc(100, r=60, angle=[ 280, 465]));
     path6a = path3d(arc(100, r=60, angle=[ 265, 465]));
     
-    translate([5.6,33.59,33.5+th/2])
+    translate([5.6,33.09,33.5+th/2])
 path_text(path5, "Joris", font="Chivo Mono:style=Bold", size=4.5, h=th, lettersize=4.5/1.2, normal=UP);
 
     translate([13.4,41,33.5+th/2])
 path_text(path6, "2024", font="Chivo Mono:style=Bold", size=3.8, h=th, lettersize=3.8/1.2, normal=UP);
     translate([22.7,38.5,33.5+th/2])
 path_text(path6a, "11-11", font="Chivo Mono:style=Bold", size=3.6, h=th, lettersize=3.6/1.2, normal=UP);
+
+}
+
+
+module body() {
+
+translate([0,0,34])
+rotate([180,0,0])
+    difference() {
+        union() {
+            // this one does not render!
+            //import("files/box_lid_v0.stl");
+            import("li.stl");
+            translate([0,0,32.1])
+            cylinder(1.9, or, or);
+        }
+        
+        translate([0,0,-1])
+        kid1();
+      
 
     }
     
