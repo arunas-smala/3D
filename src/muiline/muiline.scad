@@ -71,9 +71,13 @@ module diver3() {
     path3 = path3d(arc(100, r=50, angle=[ 215, 465]));
   
   rotate([0,0,-48])
-    translate([16,-13.5,32.5])
+    translate([14,-13.5,32.5])
     linear_extrude(th)
-text("UGNĖ", font="Chivo Mono:style=Bold", size=3.5);
+text("UGNE", font="Chivo Mono:style=Bold", size=4.5);
+
+    translate([11.3,-25.8,32.5])
+rotate([0,0,-48])
+cube([0.9,1.1,th]);
 
 }
 
