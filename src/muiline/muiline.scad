@@ -65,6 +65,16 @@ module diver3() {
     //resize([or*1.5,or*1.5])
     translate([-0,34,0])
     import("light_bottom.svg", center=true);
+    
+    
+        th=5;
+    path3 = path3d(arc(100, r=50, angle=[ 215, 465]));
+  
+  rotate([0,0,-48])
+    translate([16,-13.5,32.5])
+    linear_extrude(th)
+text("UGNĖ", font="Chivo Mono:style=Bold", size=3.5);
+
 }
 
 
@@ -132,9 +142,9 @@ rotate([180,0,0])
             cylinder(1.9, or, or);
         }
         
-        translate([0,0,-1])
-        kid1();
-      
+        // translate([0,0,-1])
+        // kid1();
+      diver3();
 
     }
     
@@ -143,6 +153,26 @@ rotate([180,0,0])
 translate([0,or,-or+3])
 stick();
 }
+
+module body_text() {
+RADIUS=40.35;
+ARC_ANGLE=65;
+stext = [ "U", "G", "N", "Ė" ];
+chars = len( stext );
+
+translate([0,0,18])
+rotate([0,180,-92+ARC_ANGLE/2])
+for(i=[0:1:chars]){
+  rotate([0,0,i*ARC_ANGLE/chars]){
+    translate( [RADIUS*.95,0,0])
+      rotate([90,0,90])
+        linear_extrude(2)
+          text(stext[i],size=10,valign="bottom",halign="left", font="Arial:style=bold");
+    }
+  }
+
+}
+
 module textur() {
 //tex = texture("trunc_diamonds",border=.25);
 //tex = texture("trunc_pyramids_vnf", border=.4);
@@ -167,4 +197,7 @@ cylinder(h=10, r=or-3);
 
 //base();
 
+//difference() {
 body();
+//body_text();
+//}
