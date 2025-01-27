@@ -36,35 +36,38 @@ module capt(hh=h) {
 
 module ring(mask=false) {
 r= mask ? d/2+0.15 : d/2;
+
+cr=mask?0.85:0.75;
+
+    translate([0,0,-5])
     rotate_extrude(angle=360)
-    translate([r,0,0])
-    circle(mask?0.85:0.75);
+    translate([r-0.1,0,0])
+    union() {
+        circle(cr);
+        
+        translate([0,0,0])
+        square([cr,10],center=false);
+        
+        translate([0,10,0])
+        circle(cr);
+    }
 }
 
 module cyl(mask=false) {
-r= mask ? d/2+0.15 : d/2;
+r= mask ? d/2+0.25 : d/2;
 
   cylinder(h=h, r=r, center=true);
   
-  translate([0,0,-5])
+  translate([0,0,0])
   ring(mask);
   
-  translate([0,0,5])
+  translate([0,0,-20])
   ring(mask);
   
-  if (!mask) {
-      translate([0,0,15])
-      ring();
-      
-      translate([0,0,-15])
-      ring();
-      
-      translate([0,0,25])
-      ring();
-      
-      translate([0,0,-25])
-      ring();
-  }
+  translate([0,0,20])
+  ring(mask);
+  
+  
 }
 
 module rod() {
@@ -137,7 +140,7 @@ module rod2() {
 }
 
 module cp() {
-    rom=d/2-p/2-storis-storis-ctt-(ctt/2);
+    rom=d/2-p/2-storis-storis-ctt;
     hom=h+(ch-storis)*2-rom;
         
     translate([0,0,(h+(ch-storis)*2-ctt)/2-1.5]) {
@@ -153,24 +156,43 @@ module cp() {
     }
 }
 
+module t(t="1") {
+RADIUS = cr+storis;
+            rotate([0,0,-90])
+          translate( [RADIUS-0.2,0,0])
+            rotate([90,0,90])
+              linear_extrude(1)
+                text(t,valign="center",halign="center", size=6);
+}
+
 
 module nut() {
-nh = 19;
+nh = 20-tt;
+
+ARC_ANGLE=360;
+stext = [ "1", "2", "3", "4", "5", "6" ];
+chars = len( stext );
 
     difference() {
         capt(nh);
+        
+for(i=[0:1:chars]){
+  rotate([0,0,i*ARC_ANGLE/chars])
+        t(stext[i]);
+        }
+                
         union() {
             cyl(true);
             
             rotate([0,0,-2])
             rotate_extrude(angle=ang+4)
-            translate([(d/2)+0.15-tt,0,0])
+            translate([(d/2)+0.05-tt,0,0])
             square([1.6+tt+0.15,nh*2], center=true); 
         }
         
         
-        //translate([0,0,nh/2-1.5+tt])
-        //cylinder(r=(d/2)+0.15-tt+(1.6+tt+0.15)/2,h=nh+tt*20,center=true);
+        //translate([0,0,0])
+        //cylinder(r=(d/2)+0.15-tt+(1.6+tt+0.0)/2,h=nh+tt*20,center=true);
     }
 
 
