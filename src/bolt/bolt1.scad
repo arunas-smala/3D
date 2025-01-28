@@ -5,7 +5,7 @@ include <BOSL2/threading.scad>;
 $fa = 1;
 $fs = 0.1;
 
-h=40;
+h=60;
 ch=10;
 d=11;
 p=1.2;
@@ -60,15 +60,22 @@ r= mask ? d/2+0.25 : d/2;
 
   cylinder(h=h, r=r, center=true);
   
-  //translate([0,0,0])
-  //ring(mask);
-  
+  if (h==40) {
   translate([0,0,-10])
   ring(mask);
   
   translate([0,0,10])
   ring(mask);
+  } else {
+  translate([0,0,0])
+  ring(mask);
   
+  translate([0,0,-20])
+  ring(mask);
+  
+  translate([0,0,20])
+  ring(mask);
+  }
   
 }
 
@@ -102,12 +109,12 @@ module rod() {
                 
                 th=smauka*2;
                 
-                translate([0,0,(h+ch)/2-smauka-ch/2-th/2+smauka+1])
+                translate([0,0,(h+ch)/2-smauka-ch/2-th/2+smauka+tt])
                 female(th);
             }
         }
         
-        translate([0,-(cr+1),h/2+1-tt*10-smauka])
+        translate([0,-(cr+1),h/2-tt*10-smauka+ch-1])
         cube(2,center=true);
     
         cylinder(h=h+(ch-storis-smauka)*2, r=d/2-p/2-storis, center=true);
@@ -134,7 +141,7 @@ module rod2() {
             }
             
             difference() {
-            cylinder(h=h+(ch-storis)*2-ctt*2, r=d/2-p/2-storis-ctt, center=true);
+            cylinder(h=h+(ch-storis-smauka)*2-ctt*2, r=d/2-p/2-storis-ctt, center=true);
                 // remove cap
                 //translate([0,0,(h+(ch-storis)*2-ctt)/2])
                 //cylinder(h=6, r=d/2-p/2-storis-ctt+10, center=true);
@@ -142,12 +149,12 @@ module rod2() {
             
             translate([0,0,-(h+ch)/2+tt])
             union() {
-                th=smauka*5;
+                th=smauka*(h==40?5:2);
                 
                 translate([0,0,ch/2-th/2])
                 male(th);
                 
-                translate([0,0,-smauka-20])
+                translate([0,0,-smauka-(h==40?20:0)])
                 cap();
             }
         }
@@ -259,11 +266,11 @@ cylinder(h=ch+1, r=d/2+ctt+tt, center=true);
 
 //translate([50,0,0])
 //rod();
-//rod2();
+rod2();
 //cp();
-nut(stext = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]);
 
 /*
+nut(stext = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]);
 
 translate([20,0,0])
 nut(stext = [ "8", "9", "0", "1", "2", "3", "4", "5", "6", "7" ]);
