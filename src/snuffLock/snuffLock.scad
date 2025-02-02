@@ -81,6 +81,8 @@ module generateTop() {
     attach([TOP], overlap=Overlap/2)
     tag("hole")
     cyl(d=Diameter-Thinnest_Wall*2, l=Overlap+0.1);
+
+  bottomPossition = Cap_Height - Overlap;
 }
 
 module generateBottom() {
