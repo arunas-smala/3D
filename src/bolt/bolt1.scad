@@ -16,13 +16,13 @@ storis=0.8;
 tt=0.001;      
 ctt=0.15;  
 
-smauka=5;   
+smauka=9;   
+
+// bbz kaip toks gavosi
+siaudo_storis = d/2-p/2-storis-ctt/2;
 
 module cap() {
   capt(ch);
-
-
-
 }
 
 module capt(hh=h) {
@@ -111,7 +111,7 @@ module rod() {
       }
     }
 
-    translate([0,-(cr+1),h/2-tt*10-smauka+ch-1])
+    translate([0,-(cr+1.5),h/2-tt*10-smauka+ch-1])
       cube(2,center=true);
 
     cylinder(h=h+(ch-storis-smauka)*2, r=d/2-p/2-storis, center=true);
@@ -137,24 +137,52 @@ module rod2() {
 
       }
 
-      difference() {
-        cylinder(h=h+(ch-storis-smauka)*2-ctt*2, r=d/2-p/2-storis-ctt, center=true);
-        // remove cap
-        //translate([0,0,(h+(ch-storis)*2-ctt)/2])
-        //cylinder(h=6, r=d/2-p/2-storis-ctt+10, center=true);
-      }
-
       translate([0,0,-(h+ch)/2+tt])
         union() {
-          th=smauka*(h==40?5:2);
+          th=smauka+2;
 
           translate([0,0,ch/2-th/2])
             male(th);
-
-          translate([0,0,-smauka-(h==40?20:0)])
-            cap();
         }
     }
+
+
+    translate([0,0,11])
+    cylinder(h=h+22, r=d/2-p/2-storis, center=true);
+
+  }
+}
+
+module rod3() {
+  translate([0,0,-(h+ch)/2+tt]) 
+    difference() {
+      union() {
+        th=smauka+20+ch/2;
+
+        translate([0,0,ch/2-th/2])
+          male(th);
+
+        translate([0,0,-smauka-20])
+          cap();
+      }
+
+      translate([-20,0,0])
+      union() {
+        cont_r=cr;
+        cont_h=ch+20+smauka-cont_r*2;
+        sphere(cont_r);
+        translate([0,0,-(cont_h)/2])
+          cylinder(r=cont_r, h=cont_h, center=true);
+        translate([0,0,-(cont_h)])
+          sphere(cont_r);
+      }
+    }
+}
+
+module siauds() {
+  difference() {
+    cylinder(h=h, r=siaudo_storis, center=true);
+
     rom=d/2-p/2-storis-storis-ctt;
     hom=h+(ch-storis+smauka)*2-rom;
     translate([0,0,rom/2])
@@ -163,8 +191,6 @@ module rod2() {
         translate([0,0,-hom/2])
           sphere(rom);
       }
-
-
   }
 }
 
@@ -261,11 +287,22 @@ module nut(stext = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]) {
 
 }
 
-//translate([50,0,0])
-//rod();
+//translate([60,0,0])
+rod();
+//translate([40,0,0])
 rod2();
+//translate([20,0,0])
+siauds();
+rod3();
 //cp();
-
+color("#e2dede") {
+translate([0,0,-45])
+nut();
+translate([0,0,-24.5])
+nut();
+translate([0,0,-4])
+nut();
+}
 /*
    nut(stext = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]);
 
