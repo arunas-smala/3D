@@ -40,7 +40,7 @@ Dial_Height = 20; // [5:1:200]
 Lock_Dials_Count = 2; // [1:1:5]
 
 // Count of dials on the container.
-Container_Dials_Coult = 1; // [1:1:5]
+Container_Dials_Count = 1; // [1:1:5]
 
 /* [📷 Render] */
 
@@ -69,24 +69,96 @@ $fa = face[0];
 $fs = face[1];
 
 /* [Hidden] */
-Overlap = Dial_Height > Cap_Height ? Cap_Height - Thinnest_Wall : Dial_Height - Thinnest_Wall;
+strapOverlap=3;
+lockCoreOverlap=2;
+
+Overlap=(Dial_Height > Cap_Height 
+? Cap_Height - Thinnest_Wall 
+: Dial_Height - Thinnest_Wall)-strapOverlap-lockCoreOverlap;
+
+// Diameters of each "layer"
+wTexture=Thinnest_Wall;
+dTexture=Diameter;
+dTexture2=dTexture-wTexture*2;
+
+wDial=2;
+dDial=dTexture2-Clearance*2;
+dDial2=dDial-wDial*2;
+
+wLock=1;
+dLock=dDial2-Clearance*2;
+dLock2=dLock-wLock*2;
+
 
 // Modules
+module lockCore(overlap, strapOverlap=strapOverlap) {
+  attach(TOP, overlap=-overlap) 
+    tag("remove") {
+      right_half(x=-Clearance/2) 
+        cyl(d=dLock+Clearance, l=lockCoreOverlap+overlap, anchor=TOP);
+      cyl(d=dLock2, l=strapOverlap+overlap, anchor=TOP);
+    }
+
+  attach(TOP, overlap=overlap) 
+    tag("keep") {
+      lockHeight = Lock_Dials_Count * Dial_Height + overlap;
+      left_half(x=-Clearance/2, s=lockHeight*2+0.1) {
+        tube(od=dLock, id=dLock2, h=lockHeight, anchor=BOT);
+
+        up(overlap)
+          for (i = [0 : Lock_Dials_Count - 1]) {
+            up(i * Dial_Height + Dial_Height / 4)
+              torus(r_maj=dLock/2, r_min=1/2);
+            up(i * Dial_Height + Dial_Height*3/4)
+              torus(r_maj=dLock/2, r_min=1/2);
+          }
+      }
+
+    }
+}
+
+module texture(h) {
+  linear_sweep(
+      ellipse(d=dTexture), tex_size=[1.5,1.5], tex_depth=Texture_Depth, texture="trunc_pyramids",
+      h=h, style="min_edge", anchor=BOT)
+    children();
+}
 
 module generateTop() {
-  diff("hole")
-    linear_sweep(
-        ellipse(d=Diameter), tex_size=[1.5,1.5], tex_depth=Texture_Depth, texture="trunc_pyramids",
-        h=Cap_Height, style="min_edge", anchor=BOT)
-    attach([TOP], overlap=Overlap/2)
-    tag("hole")
-    cyl(d=Diameter-Thinnest_Wall*2, l=Overlap+0.1);
+  overlap = 0.1;
+  diff()
+    texture(Cap_Height) {
+      attach(TOP, overlap=-overlap) 
+        tag("remove") 
+        cyl(d=dTexture2, l=Overlap+overlap, anchor=TOP);
 
-  bottomPossition = Cap_Height - Overlap;
+      down(Overlap)
+        lockCore(overlap);
+    }
 }
 
 module generateBottom() {
-    cylinder(10);
+  overlap = 0.1;
+  dialHeight = Dial_Height*Container_Dials_Count+Overlap;
+  strapOverlap=5;
+
+  difference() {
+    texture(Cap_Height) {
+      attach(TOP, overlap=overlap) 
+        diff()
+        cyl(d=dDial, l=dialHeight+overlap, anchor=BOT) {
+          lockCore(overlap, dialHeight/2);
+        }
+    }
+
+dContainer = dDial-Thinnest_Wall*2;
+lContainer = Cap_Height+dialHeight-Thinnest_Wall-strapOverlap;
+
+up(Thinnest_Wall)
+  cyl(d=dContainer, l=lContainer,
+      rounding1=dContainer/4,rounding2=dContainer/2,
+      anchor=BOT);
+  }
 }
 
 module generateLockDials() {
@@ -98,7 +170,7 @@ module generateLockDials() {
 }
 
 module generateContainerDials() {
-    for (i = [0:Container_Dials_Coult - 1]) {
+    for (i = [0:Container_Dials_Count - 1]) {
         translate([0, 0, i * Dial_Height]) {
             cylinder(10);
         }
@@ -128,7 +200,7 @@ color(Color) {
     } else if (Display == "funnel") {
         generateFunnel();
     } else {
-        xdistribute(spacing = 10 * 2) {
+        xdistribute(spacing = Diameter * 2) {
           generateTop();
           generateBottom();
           generateLockDials();
